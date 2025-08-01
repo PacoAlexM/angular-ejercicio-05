@@ -20,3 +20,51 @@
         <div class="stat-desc">{{ fullName() }} (sin formatear)</div>
     </div>
 </div>
+
+<div class="divider"></div>
+
+<div class="stats stats-vertical lg:stats-horizontal shadow w-full">
+    <div class="stat">
+        <div class="stat-title">Date Pipe</div>
+        <div class="stat-value">{{ myDate() | date }}</div>
+        <div class="stat-desc">{{ myDate() }} (sin formatear)</div>
+    </div>
+    <div class="stat">
+        <div class="stat-title">Date | full | GMT-6</div>
+        <div class="stat-value">{{ myDate() | date: "full": "GMT-6" }}</div>
+        <div class="stat-desc">{{ myDate() }} (sin formatear)</div>
+    </div>
+</div>
+
+<div class="stats stats-vertical lg:stats-horizontal shadow w-full">
+    <div class="stat">
+        <div class="stat-title">Date: "yyyy MM"</div>
+        <div class="stat-value">{{ myDate() | date: "yyyy MM" }}</div>
+        <div class="stat-desc">{{ myDate() }} (sin formatear)</div>
+    </div>
+    <div class="stat">
+        <div class="stat-title">Date | short | GMT-4</div>
+        <div class="stat-value">{{ myDate() | date: "short": "GMT-4" }}</div>
+        <div class="stat-desc">{{ myDate() }} (sin formatear)</div>
+    </div>
+</div>
+
+<div class="divider"></div>
+
+<div class="stats stats-vertical lg:stats-horizontal shadow w-full">
+    <div class="stat">
+        <div class="stat-title">Date Pipe</div>
+        <div class="stat-value">{{ myDate() | date: "dd/MM/yyyy" }}</div>
+        <div class="stat-desc">{{ myDate() }} (sin formatear)</div>
+    </div>
+    <div class="stat">
+        <div class="stat-title">Date Pipe</div>
+        <div class="stat-value">{{ myDate() | date: "HH:mm:ss" }}</div>
+        <div class="stat-desc">{{ myDate() }} (sin formatear)</div>
+    </div>
+    <div class="stat">
+        <div class="stat-title">Date Pipe</div>
+        <div class="stat-value">{{ myDate() | date: "EEEE d, MMMM" }}</div>
+        <div class="stat-desc">{{ myDate() }} (sin formatear)</div>
+    </div>
+</div>
