@@ -1,6 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { CardComponent } from "../../components/card/card.component";
-import { I18nSelectPipe } from '@angular/common';
+import { I18nPluralPipe, I18nSelectPipe, JsonPipe, SlicePipe, UpperCasePipe } from '@angular/common';
 
 const cliente1 = {
     name: 'Francisco',
@@ -18,7 +18,7 @@ const cliente2 = {
 
 @Component({
     selector: 'app-uncommon-page',
-    imports: [CardComponent, I18nSelectPipe],
+    imports: [CardComponent, I18nSelectPipe, I18nPluralPipe, SlicePipe, JsonPipe, UpperCasePipe],
     templateUrl: './uncommon.component.html'
 })
 export default class UncommonComponent {
@@ -37,5 +37,32 @@ export default class UncommonComponent {
         }
 
         this.cliente.set(cliente1);
+    }
+
+    // i18n Plural
+    clientsMap = signal({
+        '=0': 'no hay clientes esperando',
+        '=1': 'hay un cliente esperando',
+        '=2': 'hay 2 clientes esperando',
+        other: 'hay # clientes esperando',
+    });
+
+    clientes = signal([
+        'Alejandro',
+        'Jorge',
+        'Roberto',
+        'Fernanda',
+        'Luis',
+        'Adriana',
+        'Nancy',
+        'Alondra',
+        'Raquel',
+        'Carlos',
+        'Julieta',
+        'Esteban',
+    ]);
+
+    deleteCliente() {
+        this.clientes.update(p => p.slice(1));
     }
 }
