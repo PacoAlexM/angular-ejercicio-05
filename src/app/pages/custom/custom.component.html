@@ -8,19 +8,22 @@
         <div class="stat-title">ToggleCase Pipe</div>
         <div class="stat-value">{{ name() | toggleCase : toggle() }}</div>
         <div class="stat-desc">{{ name() }} (sin formatear)</div>
-        <button class="btn btn-primary" (click)="toggle.set(!toggle())">Cambiar a {{ toggle() ? 'Minúscula' : 'Mayúscula' }}</button>
+        <button class="btn btn-primary mt-2" (click)="toggle.set(!toggle())">Cambiar a {{ toggle() ? 'Minúscula' : 'Mayúscula' }}</button>
     </div>
 </div>
 
 <div class="divider"></div>
 
 <section class="mb-2">
-    <h1 class="text-2xl font-bold">Pipes personalizados en acción</h1>
+    <h1 class="text-2xl font-bold mb-2">Pipes personalizados en acción</h1>
+    <h1 class="text-2xl font-bold mb-2">Filtrando por: {{ searchQuery() }} ordenando por: {{ sortBy() }}</h1>
     <div class="flex gap-2 justify-end w-full">
-        <button class="btn btn-primary">Por nombre</button>
-        <button class="btn btn-accent">Por volar</button>
-        <button class="btn btn-secondary">Por color</button>
-        <button class="btn btn-info">Por creador</button>
+        <input type="text" class="input w-full max-w-xs" placeholder="Buscar héroe" (input)="searchQuery.set(txtSearch.value)" #txtSearch />
+        <div class="flex flex-1"></div>
+        <button (click)="sortBy.set('name')" class="btn btn-primary">Por nombre</button>
+        <button (click)="sortBy.set('canFly')" class="btn btn-accent">Por volar</button>
+        <button (click)="sortBy.set('color')" class="btn btn-secondary">Por color</button>
+        <button (click)="sortBy.set('creator')" class="btn btn-info">Por creador</button>
     </div>
 </section>
 
@@ -36,15 +39,17 @@
             </tr>
         </thead>
         <tbody>
-            @for (hero of heroes(); track hero.id; let i = $index) {
+            @for (hero of heroes() | heroFilter: searchQuery() | heroSortBy: sortBy(); track hero.id; let i = $index) {
                 <tr>
                     <th>{{ i + 1 }}</th>
                     <td>{{ hero.name }}</td>
                     <td>
                         <span class="text-xs w-44" [class.text-success]="hero.canFly" [class.text-secondary]="!hero.canFly">{{ hero.canFly | canFly}}</span>
                     </td>
-                    <td>{{ hero.color }}</td>
-                    <td>{{ hero.creator }}</td>
+                    <td>
+                        <span class="text-xs w-44" [style.color]="hero.color | heroTextColor">{{ hero.color | heroColor | titlecase}}</span>
+                    </td>
+                    <td>{{ hero.creator | heroCreator }}</td>
                 </tr>
             }
         </tbody>
